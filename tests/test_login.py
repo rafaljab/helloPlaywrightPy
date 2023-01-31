@@ -1,16 +1,6 @@
-import pytest
 from playwright.sync_api import expect
 
 from config import BASE_URL
-
-from pom.login import LoginPage
-
-
-@pytest.fixture
-def login_page(page):
-    login_page = LoginPage(page)
-    login_page.navigate()
-    yield login_page
 
 
 def test_login_with_correct_data(login_page):
