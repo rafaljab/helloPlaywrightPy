@@ -4,6 +4,11 @@ This is an example implementation of automated tests using Playwright with Pytho
 ## Dependencies
 * Python (I use version 3.10)
 
+## Application under tests
+We'll be testing a web application written in React from this repository: [GUI Automation Playground](https://github.com/rafaljab/gui-automation-playground).
+
+Install and run the application according to the instructions on the above page.
+
 ## Set up
 Download the repository:
 ```bash
@@ -30,4 +35,20 @@ pip install -r requirements.txt
 Then install all required tools to run Playwright tests:
 ```bash
 playwright install
+```
+You're all set!
+
+## Running tests
+
+Just run the following command:
+```bash
+pytest
+```
+
+The tests will run without launching the browser.
+If you want to see the progress of the tests, use the `headed` mode and the `slowmo` option.
+`slowmo=1000` means that each action will be performed in 1s intervals.
+
+```bash
+pytest --headed --slowmo=1000
 ```
