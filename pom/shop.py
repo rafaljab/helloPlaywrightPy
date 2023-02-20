@@ -25,5 +25,8 @@ class ShopPage:
     def browse_products(self):
         self.browse_products_button.click()
 
+    def product_card_button(self, product_name: str) -> Locator:
+        return self.product_cards.filter(has_text=product_name).get_by_role('button')
+
     def add_product_to_cart(self, product_name: str):
-        self.product_cards.filter(has_text=product_name).get_by_role('button').click()
+        self.product_card_button(product_name=product_name).click()

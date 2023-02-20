@@ -24,6 +24,7 @@ def test_open_empty_cart(shop_page):
 )
 def test_add_product_to_cart(shop_page, product_name, total_items, total_price):
     # Given
+    expect(shop_page.product_card_button(product_name)).to_have_attribute('title', 'Add Product')
     expect(shop_page.shop_header_total_items).to_have_text('Total Items: 0')
     expect(shop_page.shop_header_total_price).to_have_text('Total Price: $0.00')
 
@@ -31,5 +32,6 @@ def test_add_product_to_cart(shop_page, product_name, total_items, total_price):
     shop_page.add_product_to_cart(product_name)
 
     # Then
+    expect(shop_page.product_card_button(product_name)).to_have_attribute('title', 'Product In Cart')
     expect(shop_page.shop_header_total_items).to_have_text(f'Total Items: {total_items}')
     expect(shop_page.shop_header_total_price).to_have_text(f'Total Price: {total_price}')
