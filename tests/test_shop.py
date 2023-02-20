@@ -35,3 +35,19 @@ def test_add_product_to_cart(shop_page, product_name, total_items, total_price):
     expect(shop_page.product_card_button(product_name)).to_have_attribute('title', 'Product In Cart')
     expect(shop_page.shop_header_total_items).to_have_text(f'Total Items: {total_items}')
     expect(shop_page.shop_header_total_price).to_have_text(f'Total Price: {total_price}')
+
+
+def test_add_multiple_products_to_cart(shop_page):
+    # Given
+    expect(shop_page.shop_header_total_items).to_have_text('Total Items: 0')
+    expect(shop_page.shop_header_total_price).to_have_text('Total Price: $0.00')
+
+    # When
+    shop_page.add_product_to_cart('Watch')
+    shop_page.add_product_to_cart('iPhone 6')
+    shop_page.add_product_to_cart('MacBook')
+    shop_page.add_product_to_cart('Watch')
+
+    # Then
+    expect(shop_page.shop_header_total_items).to_have_text('Total Items: 4')
+    expect(shop_page.shop_header_total_price).to_have_text('Total Price:  $1,699.96')
