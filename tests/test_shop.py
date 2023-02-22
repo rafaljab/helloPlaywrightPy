@@ -50,4 +50,28 @@ def test_add_multiple_products_to_cart(shop_page):
 
     # Then
     expect(shop_page.shop_header_total_items).to_have_text('Total Items: 4')
-    expect(shop_page.shop_header_total_price).to_have_text('Total Price:  $1,699.96')
+    expect(shop_page.shop_header_total_price).to_have_text('Total Price: $1,699.96')
+
+
+def test_change_number_of_items_in_cart(shop_page):
+    # Given
+    product_name = 'Watch'
+
+    shop_page.add_product_to_cart(product_name)
+    shop_page.view_cart()
+
+    expect(shop_page.shop_header_total_items).to_have_text('Total Items: 1')
+    expect(shop_page.shop_header_total_price).to_have_text('Total Price: $99.99')
+    expect(shop_page.product_cart_item_badge(product_name)).to_have_text('1')
+    expect(shop_page.product_cart_item_quantity_dropdown(product_name)).to_have_text('1')
+    expect(shop_page.product_cart_item_subtotal_price(product_name)).to_have_text('Subtotal Price: $99.99')
+
+    # When
+    shop_page.change_quantity_of_product(product_name, 10)
+
+    # Then
+    expect(shop_page.shop_header_total_items).to_have_text('Total Items: 10')
+    expect(shop_page.shop_header_total_price).to_have_text('Total Price: $999.90')
+    expect(shop_page.product_cart_item_badge(product_name)).to_have_text('10')
+    expect(shop_page.product_cart_item_quantity_dropdown(product_name)).to_have_text('10')
+    expect(shop_page.product_cart_item_subtotal_price(product_name)).to_have_text('Subtotal Price: $999.90')
