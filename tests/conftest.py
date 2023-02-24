@@ -27,3 +27,9 @@ def left_menu(page, login):
 def shop_page(left_menu):
     shop_page = left_menu.click_shop()
     yield shop_page
+
+
+@pytest.fixture
+def todos_page(left_menu):
+    todos_page = left_menu.click_todos()
+    yield todos_page
