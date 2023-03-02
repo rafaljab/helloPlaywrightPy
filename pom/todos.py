@@ -12,7 +12,7 @@ class TodosPage:
         self.new_task_input_field: Locator = page.get_by_role('textbox')
         self.add_task_button: Locator = page.get_by_role('button', name='ADD TASK')
         self.clear_tasks_button: Locator = page.get_by_role('button', name='CLEAR COMPLETED TASKS')
-        self.todo_items: Locator = page.locator('div.MuiFormGroup-root.css-dmmspl-MuiFormGroup-root > label')
+        self.todo_items: Locator = page.get_by_test_id('todo-item')
 
     def navigate(self):
         self.page.goto(self.url)
