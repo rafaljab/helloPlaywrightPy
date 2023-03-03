@@ -1,7 +1,12 @@
+import json
+
 import pytest
+
+from config import DOMAIN
 
 from pom.left_menu import LeftMenuFragment
 from pom.login import LoginPage
+from pom.todos import TodosPage
 
 
 @pytest.fixture
@@ -33,3 +38,22 @@ def shop_page(left_menu):
 def todos_page(left_menu):
     todos_page = left_menu.click_todos()
     yield todos_page
+
+
+@pytest.fixture(scope='session')
+def todos_page_with_state(browser):
+
+    with open('tests/test_data/todos_state.json') as f:
+        data = json.load(f)
+
+    data['origins'][0]['origin'] = data['origins'][0]['origin'].replace('$domain', f'{DOMAIN}/')
+
+    context = browser.new_context(storage_state=data)
+    page = context.new_page()
+    todos_page = TodosPage(page)
+    todos_page.navigate()
+
+    yield todos_page
+
+    context.close()
+    browser.close()

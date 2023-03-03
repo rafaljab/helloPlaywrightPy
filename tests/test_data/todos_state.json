@@ -1,0 +1,18 @@
+{
+  "cookies": [],
+  "origins": [
+    {
+      "origin": "$domain",
+      "localStorage": [
+        {
+          "name": "todos",
+          "value": "[{\"id\":\"1ab95aea-3923-5b62-b31c-99b49b203191\",\"text\":\"Buy milk\",\"complete\":false},{\"id\":\"fbbdf320-d545-0266-a8eb-e55eebfc0b12\",\"text\":\"Go for a walk\",\"complete\":false},{\"id\":\"d22a4597-4885-8e6c-9107-513ad8c9884a\",\"text\":\"Wash the dishes\",\"complete\":false}]"
+        },
+        {
+          "name": "authenticated",
+          "value": "true"
+        }
+      ]
+    }
+  ]
+}

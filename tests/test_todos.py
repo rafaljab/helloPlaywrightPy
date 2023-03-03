@@ -18,3 +18,20 @@ def test_add_todos(todos_page):
     assert todos_page.todo_items.count() == len(tasks)
     for todo_text in todos_page.todo_items.all_text_contents():
         assert todo_text in tasks
+
+
+def test_check_todos_from_state(todos_page_with_state):
+    # Given
+    tasks = [
+        'Buy milk',
+        'Go for a walk',
+        'Wash the dishes'
+    ]
+    expect(todos_page_with_state.todo_items.first).to_be_visible()
+
+    # When
+
+    # Then
+    assert todos_page_with_state.todo_items.count() == 3
+    for todo_text in todos_page_with_state.todo_items.all_text_contents():
+        assert todo_text in tasks
