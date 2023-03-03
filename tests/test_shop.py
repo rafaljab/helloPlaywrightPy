@@ -3,8 +3,10 @@ import pytest
 from playwright.sync_api import expect
 
 
-def test_open_empty_cart(shop_page):
+def test_open_empty_cart(shop_page_authenticated):
     # Given
+    shop_page = shop_page_authenticated
+
     expect(shop_page.empty_cart_text).not_to_be_visible()
 
     # When
@@ -23,8 +25,10 @@ def test_open_empty_cart(shop_page):
         ('Samsung Universe 9', 1, '$1,249.00')
     ]
 )
-def test_add_product_to_cart(shop_page, product_name, total_items, total_price):
+def test_add_product_to_cart(shop_page_authenticated, product_name, total_items, total_price):
     # Given
+    shop_page = shop_page_authenticated
+
     expect(shop_page.product_card_button(product_name)).to_have_attribute('title', 'Add Product')
     expect(shop_page.shop_header_total_items).to_have_text('Total Items: 0')
     expect(shop_page.shop_header_total_price).to_have_text('Total Price: $0.00')
@@ -38,8 +42,10 @@ def test_add_product_to_cart(shop_page, product_name, total_items, total_price):
     expect(shop_page.shop_header_total_price).to_have_text(f'Total Price: {total_price}')
 
 
-def test_add_multiple_products_to_cart(shop_page):
+def test_add_multiple_products_to_cart(shop_page_authenticated):
     # Given
+    shop_page = shop_page_authenticated
+
     expect(shop_page.shop_header_total_items).to_have_text('Total Items: 0')
     expect(shop_page.shop_header_total_price).to_have_text('Total Price: $0.00')
 
@@ -54,8 +60,10 @@ def test_add_multiple_products_to_cart(shop_page):
     expect(shop_page.shop_header_total_price).to_have_text('Total Price: $3,246.00')
 
 
-def test_change_number_of_product_items_in_cart(shop_page):
+def test_change_number_of_product_items_in_cart(shop_page_authenticated):
     # Given
+    shop_page = shop_page_authenticated
+
     product_name = 'iPhone 9'
 
     shop_page.add_product_to_cart(product_name)
@@ -78,8 +86,10 @@ def test_change_number_of_product_items_in_cart(shop_page):
     expect(shop_page.product_cart_item_subtotal_price(product_name)).to_have_text('Subtotal Price: $5,490.00')
 
 
-def test_remove_product_item_from_cart(shop_page):
+def test_remove_product_item_from_cart(shop_page_authenticated):
     # Given
+    shop_page = shop_page_authenticated
+
     product_name = 'iPhone 9'
 
     shop_page.add_product_to_cart(product_name)
@@ -98,7 +108,7 @@ def test_remove_product_item_from_cart(shop_page):
     expect(shop_page.place_order_button).to_be_disabled()
 
 
-def test_end_to_end_place_order(shop_page):
+def test_place_order(shop_page):
     # Given
     products_to_order = [
         {

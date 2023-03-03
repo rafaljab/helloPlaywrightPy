@@ -6,7 +6,13 @@ from config import DOMAIN
 
 from pom.left_menu import LeftMenuFragment
 from pom.login import LoginPage
+from pom.shop import ShopPage
 from pom.todos import TodosPage
+
+
+def replace_origin_in_state(data: dict) -> dict:
+    data['origins'][0]['origin'] = data['origins'][0]['origin'].replace('$domain', f'{DOMAIN}/')
+    return data
 
 
 @pytest.fixture
@@ -35,20 +41,34 @@ def shop_page(left_menu):
 
 
 @pytest.fixture
+def shop_page_authenticated(browser):
+
+    with open('tests/test_data/authenticated_state.json') as f:
+        data = json.load(f)
+
+    context = browser.new_context(storage_state=replace_origin_in_state(data))
+    page = context.new_page()
+    shop_page = ShopPage(page)
+    shop_page.navigate()
+
+    yield shop_page
+
+    context.close()
+
+
+@pytest.fixture
 def todos_page(left_menu):
     todos_page = left_menu.click_todos()
     yield todos_page
 
 
-@pytest.fixture(scope='session')
-def todos_page_with_state(browser):
+@pytest.fixture
+def todos_page_authenticated(browser):
 
-    with open('tests/test_data/todos_state.json') as f:
+    with open('tests/test_data/authenticated_state.json') as f:
         data = json.load(f)
 
-    data['origins'][0]['origin'] = data['origins'][0]['origin'].replace('$domain', f'{DOMAIN}/')
-
-    context = browser.new_context(storage_state=data)
+    context = browser.new_context(storage_state=replace_origin_in_state(data))
     page = context.new_page()
     todos_page = TodosPage(page)
     todos_page.navigate()
@@ -56,4 +76,19 @@ def todos_page_with_state(browser):
     yield todos_page
 
     context.close()
-    browser.close()
+
+
+@pytest.fixture
+def todos_page_with_state(browser):
+
+    with open('tests/test_data/todos_state.json') as f:
+        data = json.load(f)
+
+    context = browser.new_context(storage_state=replace_origin_in_state(data))
+    page = context.new_page()
+    todos_page = TodosPage(page)
+    todos_page.navigate()
+
+    yield todos_page
+
+    context.close()

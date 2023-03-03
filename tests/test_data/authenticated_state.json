@@ -1,0 +1,14 @@
+{
+  "cookies": [],
+  "origins": [
+    {
+      "origin": "$domain",
+      "localStorage": [
+        {
+          "name": "authenticated",
+          "value": "true"
+        }
+      ]
+    }
+  ]
+}
