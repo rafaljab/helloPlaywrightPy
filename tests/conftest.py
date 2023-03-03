@@ -29,6 +29,20 @@ def login(login_page):
 
 
 @pytest.fixture
+def page_authenticated(browser):
+
+    with open('tests/test_data/authenticated_state.json') as f:
+        data = json.load(f)
+
+    context = browser.new_context(storage_state=replace_origin_in_state(data))
+    page = context.new_page()
+
+    yield page
+
+    context.close()
+
+
+@pytest.fixture
 def left_menu(page, login):
     left_menu = LeftMenuFragment(page)
     yield left_menu
@@ -41,19 +55,10 @@ def shop_page(left_menu):
 
 
 @pytest.fixture
-def shop_page_authenticated(browser):
-
-    with open('tests/test_data/authenticated_state.json') as f:
-        data = json.load(f)
-
-    context = browser.new_context(storage_state=replace_origin_in_state(data))
-    page = context.new_page()
-    shop_page = ShopPage(page)
+def shop_page_authenticated(page_authenticated):
+    shop_page = ShopPage(page_authenticated)
     shop_page.navigate()
-
     yield shop_page
-
-    context.close()
 
 
 @pytest.fixture
@@ -63,19 +68,10 @@ def todos_page(left_menu):
 
 
 @pytest.fixture
-def todos_page_authenticated(browser):
-
-    with open('tests/test_data/authenticated_state.json') as f:
-        data = json.load(f)
-
-    context = browser.new_context(storage_state=replace_origin_in_state(data))
-    page = context.new_page()
-    todos_page = TodosPage(page)
+def todos_page_authenticated(page_authenticated):
+    todos_page = TodosPage(page_authenticated)
     todos_page.navigate()
-
     yield todos_page
-
-    context.close()
 
 
 @pytest.fixture
