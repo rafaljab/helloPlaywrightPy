@@ -4,7 +4,7 @@ from config import BASE_URL
 
 
 class LoginPage:
-    url = f'{BASE_URL}login'
+    url = f'{BASE_URL}/login'
 
     def __init__(self, page: Page):
         self.page = page

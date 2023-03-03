@@ -4,7 +4,7 @@ from config import BASE_URL
 
 
 class ShopPage:
-    url = f'{BASE_URL}shop'
+    url = f'{BASE_URL}/shop'
 
     def __init__(self, page: Page):
         self.page = page

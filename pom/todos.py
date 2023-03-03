@@ -4,7 +4,7 @@ from config import BASE_URL
 
 
 class TodosPage:
-    url = f'{BASE_URL}todos'
+    url = f'{BASE_URL}/todos'
 
     def __init__(self, page: Page):
         self.page = page
