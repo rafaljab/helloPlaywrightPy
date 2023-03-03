@@ -108,6 +108,7 @@ def test_remove_product_item_from_cart(shop_page_authenticated):
     expect(shop_page.place_order_button).to_be_disabled()
 
 
+@pytest.mark.e2e
 def test_place_order(shop_page):
     # Given
     products_to_order = [

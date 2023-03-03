@@ -1,3 +1,4 @@
+import pytest
 from playwright.sync_api import expect
 
 
@@ -98,6 +99,7 @@ def test_clear_todos(todos_page_with_state):
     expect(todos_page.todo_item(tasks[2])).to_be_visible()
 
 
+@pytest.mark.e2e
 def test_todos(todos_page):
     # Given
     tasks = [
