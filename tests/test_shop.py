@@ -17,6 +17,7 @@ def test_open_empty_cart(shop_page_authenticated):
     expect(shop_page.place_order_button).to_be_disabled()
 
 
+@pytest.mark.with_rest_api
 @pytest.mark.parametrize(
     'product_name, total_items, total_price',
     [
@@ -42,6 +43,7 @@ def test_add_product_to_cart(shop_page_authenticated, product_name, total_items,
     expect(shop_page.shop_header_total_price).to_have_text(f'Total Price: {total_price}')
 
 
+@pytest.mark.with_rest_api
 def test_add_multiple_products_to_cart(shop_page_authenticated):
     # Given
     shop_page = shop_page_authenticated
@@ -60,6 +62,7 @@ def test_add_multiple_products_to_cart(shop_page_authenticated):
     expect(shop_page.shop_header_total_price).to_have_text('Total Price: $3,246.00')
 
 
+@pytest.mark.with_rest_api
 def test_change_number_of_product_items_in_cart(shop_page_authenticated):
     # Given
     shop_page = shop_page_authenticated
@@ -86,6 +89,7 @@ def test_change_number_of_product_items_in_cart(shop_page_authenticated):
     expect(shop_page.product_cart_item_subtotal_price(product_name)).to_have_text('Subtotal Price: $5,490.00')
 
 
+@pytest.mark.with_rest_api
 def test_remove_product_item_from_cart(shop_page_authenticated):
     # Given
     shop_page = shop_page_authenticated
@@ -108,6 +112,7 @@ def test_remove_product_item_from_cart(shop_page_authenticated):
     expect(shop_page.place_order_button).to_be_disabled()
 
 
+@pytest.mark.with_rest_api
 @pytest.mark.e2e
 def test_place_order(shop_page):
     # Given
