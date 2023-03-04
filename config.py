@@ -1,4 +1,5 @@
-# DOMAIN = 'http://localhost:3000'
-DOMAIN = 'https://rafaljab.github.io'
+import os
+
+DOMAIN = os.environ['DOMAIN']
 
 BASE_URL = f'{DOMAIN}/gui-automation-playground'
