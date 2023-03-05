@@ -7,6 +7,7 @@ This is an example implementation of automated tests using Playwright with Pytho
 * Parametrized tests
 * Markers (tagged tests)
 * CI Pipeline (GitHub Actions)
+* HTML reports
 
 ## Application under tests
 We'll be testing a web application written in React from this repository: [GUI Automation Playground](https://github.com/rafaljab/gui-automation-playground) (v1.1.0).
