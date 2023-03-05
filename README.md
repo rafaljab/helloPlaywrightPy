@@ -69,6 +69,11 @@ If you want to see the progress of the tests, use the `headed` mode and the `slo
 pytest --headed --slowmo=1000
 ```
 
+Generating tests report:
+```bash
+pytest --template=html1/index.html --report=report.html
+```
+
 Running tests for a given marker:
 ```bash
 pytest -m e2e
