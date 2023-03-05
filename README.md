@@ -1,19 +1,28 @@
 # Hello Playwright (Python)
-This is an example implementation of automated tests using Playwright with Python (Pytest).
+This is an example implementation of automated tests using Playwright with Python (and Pytest).
+
+## Features
+* Page Object Model
+* Pytest fixtures
+* Parametrized tests
+* Markers (tagged tests)
+* CI Pipeline (GitHub Actions)
+
+## Application under tests
+We'll be testing a web application written in React from this repository: [GUI Automation Playground](https://github.com/rafaljab/gui-automation-playground) (v1.1.0).
+
+Install and run the application according to the instructions on the above page.
 
 ## Dependencies
 * Python (I use version 3.10)
 
-## Application under tests
-We'll be testing a web application written in React from this repository: [GUI Automation Playground](https://github.com/rafaljab/gui-automation-playground).
-
-Install and run the application according to the instructions on the above page.
-
 ## Set up
-Download the repository:
+Clone the repository:
 ```bash
 git clone https://github.com/rafaljab/helloPlaywrightPy.git
 ```
+If you want more freedom, you can fork the repository first instead of cloning it directly.
+
 Then you need to create a virtual environment.
 If you don't have virtualenv package installed on your machine, you need to run this command first:
 ```bash
@@ -36,6 +45,13 @@ Then install all required tools to run Playwright tests:
 ```bash
 playwright install
 ```
+
+Create an `.env` file in the root directory (`helloPlaywrightPy`).
+This file is ignored by Git and should contain a variable for the domain:
+```
+DOMAIN=https://rafaljab.github.io
+```
+
 You're all set!
 
 ## Running tests
@@ -52,3 +68,17 @@ If you want to see the progress of the tests, use the `headed` mode and the `slo
 ```bash
 pytest --headed --slowmo=1000
 ```
+
+Running tests for a given marker:
+```bash
+pytest -m e2e
+```
+
+You can also exclude tests with a given marker:
+```bash
+pytest -m "not e2e"
+```
+
+You can freely combine different commands.
+Pytest is very flexible and allows you to specify which tests to run in different ways.
+More details in the documentation - [Command-line Flags](https://docs.pytest.org/en/stable/reference/reference.html#command-line-flags)
