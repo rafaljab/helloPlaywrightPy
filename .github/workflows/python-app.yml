@@ -40,4 +40,10 @@ jobs:
       env:
         DOMAIN: ${{vars.DOMAIN}}
       run: |
-        pytest
+        pytest --template=html1/index.html --report=report.html
+    - uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: playwright-report
+        path: report.html
+        retention-days: 30
