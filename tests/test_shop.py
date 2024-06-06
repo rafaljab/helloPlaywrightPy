@@ -21,9 +21,9 @@ def test_open_empty_cart(shop_page_authenticated):
 @pytest.mark.parametrize(
     'product_name, total_items, total_price',
     [
-        ('iPhone 9', 1, '$549.00'),
-        ('iPhone X', 1, '$899.00'),
-        ('Samsung Universe 9', 1, '$1,249.00')
+        ('Cucumber', 1, '$1.49'),
+        ('Eggs', 1, '$2.99'),
+        ('Kiwi', 1, '$2.49')
     ]
 )
 def test_add_product_to_cart(shop_page_authenticated, product_name, total_items, total_price):
@@ -52,14 +52,14 @@ def test_add_multiple_products_to_cart(shop_page_authenticated):
     expect(shop_page.shop_header_total_price).to_have_text('Total Price: $0.00')
 
     # When
-    shop_page.add_product_to_cart('iPhone 9')
-    shop_page.add_product_to_cart('iPhone X')
-    shop_page.add_product_to_cart('Samsung Universe 9')
-    shop_page.add_product_to_cart('iPhone 9')
+    shop_page.add_product_to_cart('Cucumber')
+    shop_page.add_product_to_cart('Eggs')
+    shop_page.add_product_to_cart('Kiwi')
+    shop_page.add_product_to_cart('Juice')
 
     # Then
     expect(shop_page.shop_header_total_items).to_have_text('Total Items: 4')
-    expect(shop_page.shop_header_total_price).to_have_text('Total Price: $3,246.00')
+    expect(shop_page.shop_header_total_price).to_have_text('Total Price: $10.96')
 
 
 @pytest.mark.with_rest_api
@@ -67,26 +67,26 @@ def test_change_number_of_product_items_in_cart(shop_page_authenticated):
     # Given
     shop_page = shop_page_authenticated
 
-    product_name = 'iPhone 9'
+    product_name = 'Kiwi'
 
     shop_page.add_product_to_cart(product_name)
     shop_page.view_cart()
 
     expect(shop_page.shop_header_total_items).to_have_text('Total Items: 1')
-    expect(shop_page.shop_header_total_price).to_have_text('Total Price: $549.00')
+    expect(shop_page.shop_header_total_price).to_have_text('Total Price: $2.49')
     expect(shop_page.product_cart_item_badge(product_name)).to_have_text('1')
     expect(shop_page.product_cart_item_quantity_dropdown(product_name)).to_have_text('1')
-    expect(shop_page.product_cart_item_subtotal_price(product_name)).to_have_text('Subtotal Price: $549.00')
+    expect(shop_page.product_cart_item_subtotal_price(product_name)).to_have_text('Subtotal Price: $2.49')
 
     # When
     shop_page.change_quantity_of_product(product_name, 10)
 
     # Then
     expect(shop_page.shop_header_total_items).to_have_text('Total Items: 10')
-    expect(shop_page.shop_header_total_price).to_have_text('Total Price: $5,490.00')
+    expect(shop_page.shop_header_total_price).to_have_text('Total Price: $24.90')
     expect(shop_page.product_cart_item_badge(product_name)).to_have_text('10')
     expect(shop_page.product_cart_item_quantity_dropdown(product_name)).to_have_text('10')
-    expect(shop_page.product_cart_item_subtotal_price(product_name)).to_have_text('Subtotal Price: $5,490.00')
+    expect(shop_page.product_cart_item_subtotal_price(product_name)).to_have_text('Subtotal Price: $24.90')
 
 
 @pytest.mark.with_rest_api
@@ -94,7 +94,7 @@ def test_remove_product_item_from_cart(shop_page_authenticated):
     # Given
     shop_page = shop_page_authenticated
 
-    product_name = 'iPhone 9'
+    product_name = 'Kiwi'
 
     shop_page.add_product_to_cart(product_name)
     shop_page.view_cart()
@@ -118,23 +118,23 @@ def test_place_order(shop_page):
     # Given
     products_to_order = [
         {
-            'product_name': 'iPhone 9',
+            'product_name': 'Kiwi',
             'quantity': 3,  # 0 <= quantity
             'quantity_by_dropdown': False
         },
         {
-            'product_name': 'iPhone X',
+            'product_name': 'Juice',
             'quantity': 5,
             'quantity_by_dropdown': True
         },
         {
-            'product_name': 'Samsung Universe 9',
+            'product_name': 'Cucumber',
             'quantity': 1,
             'quantity_by_dropdown': None
         }
     ]
     total_quantity = 9
-    total_price = '$7,391.00'
+    total_price = '$28.91'
 
     # When
     for product in products_to_order:
