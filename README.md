@@ -12,7 +12,7 @@ You can also check how this can be done using Playwright with Typescript here: [
 * HTML reports
 
 ## Application under tests
-We'll be testing a web application written in React from this repository: [GUI Automation Playground](https://github.com/rafaljab/gui-automation-playground) (v1.1.0).
+We'll be testing a web application written in React from this repository: [GUI Automation Playground](https://github.com/rafaljab/gui-automation-playground) (v1.2.0).
 
 Install and run the application according to the instructions on the above page.
 

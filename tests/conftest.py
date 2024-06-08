@@ -4,6 +4,7 @@ import pytest
 
 from config import DOMAIN
 
+from pom.top_menu import TopMenuFragment
 from pom.left_menu import LeftMenuFragment
 from pom.login import LoginPage
 from pom.shop import ShopPage
@@ -43,7 +44,14 @@ def page_authenticated(browser):
 
 
 @pytest.fixture
-def left_menu(page, login):
+def top_menu(page, login):
+    top_menu = TopMenuFragment(page)
+    yield top_menu
+
+
+@pytest.fixture
+def left_menu(page, top_menu):
+    top_menu.open_menu()
     left_menu = LeftMenuFragment(page)
     yield left_menu
 
