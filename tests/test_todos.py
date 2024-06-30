@@ -1,10 +1,12 @@
 import pytest
 from playwright.sync_api import expect
 
+from pom.todos import TodosPage
+
 
 def test_add_todos(todos_page_authenticated):
     # Given
-    todos_page = todos_page_authenticated
+    todos_page: TodosPage = todos_page_authenticated
 
     tasks = [
         'Buy milk',
@@ -26,7 +28,7 @@ def test_add_todos(todos_page_authenticated):
 
 def test_load_todos_from_state(todos_page_with_state):
     # Given
-    todos_page = todos_page_with_state
+    todos_page: TodosPage = todos_page_with_state
 
     tasks = [
         'Buy milk',
@@ -45,7 +47,7 @@ def test_load_todos_from_state(todos_page_with_state):
 
 def test_toggle_todos(todos_page_with_state):
     # Given
-    todos_page = todos_page_with_state
+    todos_page: TodosPage = todos_page_with_state
 
     tasks = [
         'Buy milk',
@@ -69,7 +71,7 @@ def test_toggle_todos(todos_page_with_state):
 
 def test_clear_todos(todos_page_with_state):
     # Given
-    todos_page = todos_page_with_state
+    todos_page: TodosPage = todos_page_with_state
 
     tasks = [
         'Buy milk',
@@ -102,6 +104,8 @@ def test_clear_todos(todos_page_with_state):
 @pytest.mark.e2e
 def test_todos(todos_page):
     # Given
+    todos_page: TodosPage
+
     tasks = [
         'Buy milk',
         'Go for a walk',

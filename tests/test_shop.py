@@ -2,10 +2,12 @@ import pytest
 
 from playwright.sync_api import expect
 
+from pom.shop import ShopPage
+
 
 def test_open_empty_cart(shop_page_authenticated):
     # Given
-    shop_page = shop_page_authenticated
+    shop_page: ShopPage = shop_page_authenticated
 
     expect(shop_page.empty_cart_text).not_to_be_visible()
 
@@ -28,7 +30,7 @@ def test_open_empty_cart(shop_page_authenticated):
 )
 def test_add_product_to_cart(shop_page_authenticated, product_name, total_items, total_price):
     # Given
-    shop_page = shop_page_authenticated
+    shop_page: ShopPage = shop_page_authenticated
 
     expect(shop_page.product_card_button(product_name)).to_have_attribute('title', 'Add Product')
     expect(shop_page.shop_header_total_items).to_have_text('Total Items: 0')
@@ -46,7 +48,7 @@ def test_add_product_to_cart(shop_page_authenticated, product_name, total_items,
 @pytest.mark.with_rest_api
 def test_add_multiple_products_to_cart(shop_page_authenticated):
     # Given
-    shop_page = shop_page_authenticated
+    shop_page: ShopPage = shop_page_authenticated
 
     expect(shop_page.shop_header_total_items).to_have_text('Total Items: 0')
     expect(shop_page.shop_header_total_price).to_have_text('Total Price: $0.00')
@@ -65,7 +67,7 @@ def test_add_multiple_products_to_cart(shop_page_authenticated):
 @pytest.mark.with_rest_api
 def test_change_number_of_product_items_in_cart(shop_page_authenticated):
     # Given
-    shop_page = shop_page_authenticated
+    shop_page: ShopPage = shop_page_authenticated
 
     product_name = 'Calypso Mangoes'
 
@@ -92,7 +94,7 @@ def test_change_number_of_product_items_in_cart(shop_page_authenticated):
 @pytest.mark.with_rest_api
 def test_remove_product_item_from_cart(shop_page_authenticated):
     # Given
-    shop_page = shop_page_authenticated
+    shop_page: ShopPage = shop_page_authenticated
 
     product_name = 'Calypso Mangoes'
 
@@ -116,6 +118,8 @@ def test_remove_product_item_from_cart(shop_page_authenticated):
 @pytest.mark.e2e
 def test_place_order(shop_page):
     # Given
+    shop_page: ShopPage
+
     products_to_order = [
         {
             'product_name': 'Golden Kiwis',

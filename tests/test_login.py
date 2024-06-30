@@ -2,9 +2,13 @@ from playwright.sync_api import expect
 
 from config import BASE_URL
 
+from pom.login import LoginPage
+
 
 def test_login_with_correct_data(login_page):
     # Given
+    login_page: LoginPage
+
     email = 'admin@example.com'
     password = 'admin123'
 
@@ -18,6 +22,8 @@ def test_login_with_correct_data(login_page):
 
 def test_login_with_incorrect_email(login_page):
     # Given
+    login_page: LoginPage
+
     email = 'test@example.com'
     password = 'admin123'
 
@@ -31,6 +37,8 @@ def test_login_with_incorrect_email(login_page):
 
 def test_login_with_incorrect_password(login_page):
     # Given
+    login_page: LoginPage
+
     email = 'admin@example.com'
     password = 'test'
 
