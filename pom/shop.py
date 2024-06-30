@@ -41,7 +41,7 @@ class ShopPage:
         return self.cart_products.filter(has_text=product_name)
 
     def product_cart_item_quantity_dropdown(self, product_name: str) -> Locator:
-        return self.product_cart_item(product_name).get_by_role('button', name='Item Quantity')
+        return self.product_cart_item(product_name).get_by_role('combobox', name='Item Quantity')
 
     def change_quantity_of_product(self, product_name: str, quantity: int):
         self.product_cart_item_quantity_dropdown(product_name).click()

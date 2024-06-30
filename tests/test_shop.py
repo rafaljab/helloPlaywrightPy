@@ -21,9 +21,9 @@ def test_open_empty_cart(shop_page_authenticated):
 @pytest.mark.parametrize(
     'product_name, total_items, total_price',
     [
-        ('Cucumber', 1, '$1.49'),
-        ('Eggs', 1, '$2.99'),
-        ('Kiwi', 1, '$2.49')
+        ('Calypso Mangoes', 1, '$2.49'),
+        ('Honeycrisp Apples', 1, '$1.99'),
+        ('Large Avocados', 1, '$2.29')
     ]
 )
 def test_add_product_to_cart(shop_page_authenticated, product_name, total_items, total_price):
@@ -52,14 +52,14 @@ def test_add_multiple_products_to_cart(shop_page_authenticated):
     expect(shop_page.shop_header_total_price).to_have_text('Total Price: $0.00')
 
     # When
-    shop_page.add_product_to_cart('Cucumber')
-    shop_page.add_product_to_cart('Eggs')
-    shop_page.add_product_to_cart('Kiwi')
-    shop_page.add_product_to_cart('Juice')
+    shop_page.add_product_to_cart('Blackberries (Organic)')
+    shop_page.add_product_to_cart('Organic Baby Spinach')
+    shop_page.add_product_to_cart('Exotic Dragonfruit')
+    shop_page.add_product_to_cart('Golden Kiwis')
 
     # Then
     expect(shop_page.shop_header_total_items).to_have_text('Total Items: 4')
-    expect(shop_page.shop_header_total_price).to_have_text('Total Price: $10.96')
+    expect(shop_page.shop_header_total_price).to_have_text('Total Price: $16.06')
 
 
 @pytest.mark.with_rest_api
@@ -67,7 +67,7 @@ def test_change_number_of_product_items_in_cart(shop_page_authenticated):
     # Given
     shop_page = shop_page_authenticated
 
-    product_name = 'Kiwi'
+    product_name = 'Calypso Mangoes'
 
     shop_page.add_product_to_cart(product_name)
     shop_page.view_cart()
@@ -94,7 +94,7 @@ def test_remove_product_item_from_cart(shop_page_authenticated):
     # Given
     shop_page = shop_page_authenticated
 
-    product_name = 'Kiwi'
+    product_name = 'Calypso Mangoes'
 
     shop_page.add_product_to_cart(product_name)
     shop_page.view_cart()
@@ -118,23 +118,23 @@ def test_place_order(shop_page):
     # Given
     products_to_order = [
         {
-            'product_name': 'Kiwi',
+            'product_name': 'Golden Kiwis',
             'quantity': 3,  # 0 <= quantity
             'quantity_by_dropdown': False
         },
         {
-            'product_name': 'Juice',
+            'product_name': 'Sun-Ripened Cherry Tomatoes',
             'quantity': 5,
             'quantity_by_dropdown': True
         },
         {
-            'product_name': 'Cucumber',
+            'product_name': 'Jumbo Asparagus Spear',
             'quantity': 1,
             'quantity_by_dropdown': None
         }
     ]
     total_quantity = 9
-    total_price = '$28.91'
+    total_price = '$27.81'
 
     # When
     for product in products_to_order:
